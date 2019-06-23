@@ -57,7 +57,6 @@ class Board extends Component {
       for(let y = 1; y <= this.props.ncols; y++) {
         let litness = (Math.floor(Math.random() * 10) + 1) <= this.props.chanceLightStartsOn;
         row.push(<Cell key={`${x}, ${y}`} isLit={litness} />);
-         
       }
       board.push(row);
       row = [];
