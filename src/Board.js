@@ -31,8 +31,8 @@ import './Board.css';
 
 class Board extends Component {
   static defaultProps = {
-    nrows: 2,
-    ncols: 2,
+    nrows: 5,
+    ncols: 5,
     chanceLightStartsOn: 2
   }
 
@@ -75,7 +75,7 @@ class Board extends Component {
     // win when every cell is turned off
     // TODO: determine is the game has been won
 
-    this.setState({board, hasWon: false});
+    // this.setState({board, hasWon});
   }
 
 
@@ -90,7 +90,16 @@ class Board extends Component {
 
     // TODO
     return(
-      <Cell />
+      <table className='Board'>
+        <tbody>
+          <tr>
+            <Cell isLit={true} />
+            <Cell isLit={false} />
+            <Cell isLit={true} />
+            <Cell isLit={false} />
+          </tr>
+        </tbody>
+      </table>
     )
   }
 }
