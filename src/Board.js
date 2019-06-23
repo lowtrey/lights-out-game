@@ -30,11 +30,20 @@ import './Board.css';
  **/
 
 class Board extends Component {
+  static defaultProps = {
+    nrows: 2,
+    ncols: 2,
+    chanceLightStartsOn: 2
+  }
 
   constructor(props) {
     super(props);
-
     // TODO: set initial state
+    this.state = {
+      hasWon: false,
+      board: this.createBoard()
+    };
+    this.flipCellsAround = this.flipCellsAround.bind(this);
   }
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
@@ -66,14 +75,13 @@ class Board extends Component {
     // win when every cell is turned off
     // TODO: determine is the game has been won
 
-    this.setState({board, hasWon});
+    this.setState({board, hasWon: false});
   }
 
 
   /** Render game board or winning message. */
 
   render() {
-
     // if the game is won, just show a winning msg & render nothing else
 
     // TODO
@@ -81,6 +89,9 @@ class Board extends Component {
     // make table board
 
     // TODO
+    return(
+      <Cell />
+    )
   }
 }
 
