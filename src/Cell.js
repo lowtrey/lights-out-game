@@ -16,13 +16,6 @@ import "./Cell.css"
  **/
 
 class Cell extends Component {
-  static defaultProps = {
-    flipCellsAroundMe: function() {
-      console.log('cells flipped!');
-    },
-    isLit: true
-  }
-  
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
