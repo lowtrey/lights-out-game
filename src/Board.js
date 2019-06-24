@@ -33,8 +33,8 @@ class Board extends Component {
   static defaultProps = {
     nrows: 5,
     ncols: 5,
-    chanceLightStartsOn: 5
-  }
+    chanceLightStartsOn: 0.25
+  };
 
   constructor(props) {
     super(props);
@@ -50,18 +50,16 @@ class Board extends Component {
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
 
   createBoard() {
-    let board = [],
-        row = [];
-
-    for(let x = 1; x <= this.props.nrows; x++) {
-      for(let y = 1; y <= this.props.ncols; y++) {
-        let litness = (Math.floor(Math.random() * 10) + 1) <= this.props.chanceLightStartsOn;
-        row.push(<Cell key={`${x}, ${y}`} isLit={litness} />);
+    let board = [];
+    // TODO: create array-of-arrays of true/false values       
+    for(let y = 0; y < this.props.nrows; y++) {
+      let row = [];
+      for(let x = 0; x <= this.props.ncols; x++) {
+        row.push(Math.random() < this.props.chanceLightStartsOn);
       }
       board.push(row);
-      row = [];
     }
-    return board.map(row => <tr>{row}</tr>);
+    return board;
   }
 
   /** handle changing a cell: update board & determine if winner */
@@ -92,11 +90,20 @@ class Board extends Component {
   /** Render game board or winning message. */
 
   render() {
+    let tblBoard = [];
+    for (let y = 0; y < this.props.nrows; y++){
+      let row = [];
+      for(let x = 0; x < this.props.ncols; x++){
+        let coord = `${y}-${x}`;
+        row.push(<Cell key={coord} isLit={this.state.board[y][x]} />);
+      }
+      tblBoard.push(<tr key={y}>{row}</tr>);
+    }
     let gameState = this.state.hasWon
       ? <h1>You Win!!</h1> 
       : (<table className='Board'>
             <tbody>
-              {this.state.board}
+              {tblBoard}
             </tbody>
           </table>);
     return gameState;
